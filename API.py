@@ -30,3 +30,6 @@ def getSongID(name):
 #returns Song's name given Song's ID
 def getSongName(ID):
     return spotify.track(ID)['name']
+
+def display(ID):
+    
