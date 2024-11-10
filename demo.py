@@ -1,9 +1,11 @@
 from encodings import search_function
+from pdb import run
 import customtkinter
 from customtkinter import *
 from CTkListbox import CTkListbox
 import webbrowser
 import API
+import infopage
 set_appearance_mode("light")
 data2=''
 data4=''
@@ -23,8 +25,7 @@ class App(customtkinter.CTk):
         self.list= CTkListbox(self, width=5000)
         self.list.grid(row=2, column=0, padx=20, pady=(0, 20), sticky="w")
         def pullup(e):
-            h=0
-            print(h)
+            import infopage
         
         def searchfunction(e):
             global data2
