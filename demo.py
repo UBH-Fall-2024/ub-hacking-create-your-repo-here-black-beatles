@@ -14,7 +14,7 @@ class App(customtkinter.CTk):
         super().__init__()
 
         self.title("Spotilist")
-        self.geometry("400x400")
+        self.geometry("4000x4000")
         self.grid_columnconfigure((0, 1), weight=1)
 
 #searchbar
@@ -41,6 +41,8 @@ class App(customtkinter.CTk):
             update()
         def pullup(e):
             infobox=CTkToplevel()
+            infobox.title("Info")
+            infobox.geometry("800x800")
         def update():
             global data2
             global data4
