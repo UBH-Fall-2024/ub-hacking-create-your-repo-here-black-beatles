@@ -18,54 +18,43 @@ class App(customtkinter.CTk):
 #searchbar
         self.title = customtkinter.CTkLabel(self, text="Search songs, artist, or bands", fg_color="grey",font=("helvetica",18))
         self.title.grid(row=0, column=0, padx=20, pady=20, sticky="ew", columnspan=2)
-        self.Entry= customtkinter.CTkEntry(self,font=("helvetica",14))
+        self.Entry= customtkinter.CTkEntry(self,font=("helvetica",14),width=250)
         self.Entry.grid(row=1, column=0, padx=20, pady=(0, 20), sticky="w")
         self.list= CTkListbox(self, width=5000)
         self.list.grid(row=2, column=0, padx=20, pady=(0, 20), sticky="w")
+        
+        
         def searchfunction(e):
             global data2
             global data4
-            
 
             typed= self.Entry.get()
             if typed=='':
                 self.list.delete(0,END)
             else:
-                 data1=API.getArtistID(typed)
-                 data2=API.getArtistName(data1)
-                 data3=API.getSongID(typed)
-                 data4=API.getSongName(data3)
-                 print(data2)
-                 print(data4)
-                 update(data3)
-            
-        def update(stuff):
+                lst = API.search(typed)
+                data2 = map(API.getArtistName,lst[:3])
+                data4 = map(API.getSongName,lst[3:])
+            update()
+        def update():
             global data2
             global data4
-            self.list.delete(0,END)
-            self.list.insert(END,data2)
-            self.list.insert(END,data4)
-        self.list.bind
+            
+            self.list.delete(0,7)
+            for x in data2:
+                self.list.insert(END,"Artist: " + x)
+            for x in data4:
+                self.list.insert(END,"Song: " + x)
         self.Entry.bind("<KeyRelease>",searchfunction)
        
             
                                            
 
-        self.button = customtkinter.CTkButton(self, text="my button", command=self.button_callback)
+        self.button = customtkinter.CTkButton(self, text="Clear Restuls", command=self.button_callback)
         self.button.grid(row=400, column=0, padx=20, pady=20, sticky="ew", columnspan=2)
 
-        self.button1 = customtkinter.CTkButton(self, text="Like", command=self.liked)
-        self.button1.grid(row=3, column=0, padx=20, pady=(0, 20), sticky="w")
-
-        self.checkbox_2 = customtkinter.CTkCheckBox(self, text="Dislike")
-        self.checkbox_2.grid(row=3, column=1, padx=20, pady=(0, 20), sticky="w")
-    count1=0
-
-    def liked(self):
-        self.count1=self.count1+1
-        print(str(self.count1))
     def button_callback(self):
-        webbrowser.open("https://ublearns.buffalo.edu/d2l/login?sessionExpired=1&target=%2fd2l%2fle%2fcontent%2f212089%2fviewContent%2f4234407%2fView")
+        self.list.delete(0,END)
         print("button pressed")
     
 

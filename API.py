@@ -30,9 +30,3 @@ def getSongID(name):
 #returns Song's name given Song's ID
 def getSongName(ID):
     return spotify.track(ID)['name']
-
-for i in range(len(search("billy"))):
-    if i < len(search("billy"))/2:
-        print("Artist: " + getArtistName(search("billy")[i]))
-    else:
-        print("Song: " +getSongName(search("billy")[i]))
