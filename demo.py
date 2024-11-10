@@ -5,7 +5,6 @@ from customtkinter import *
 from CTkListbox import CTkListbox
 import webbrowser
 import API
-import infopage
 set_appearance_mode("light")
 data2=''
 data4=''
