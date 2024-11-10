@@ -1,10 +1,16 @@
 from encodings import search_function
+from hmac import new
 from pdb import run
+from subprocess import call
+import tkinter
+from tkinter import *
+from tkinter import ttk
 import customtkinter
 from customtkinter import *
 from CTkListbox import CTkListbox
 import webbrowser
 import API
+import infopage
 set_appearance_mode("light")
 data2=''
 data4=''
@@ -26,7 +32,7 @@ class App(customtkinter.CTk):
         
             
         
-        def searchfunction(e):
+        def searchfunction(event):
             global data2
             global data4
 
@@ -38,10 +44,12 @@ class App(customtkinter.CTk):
                 data2 = map(API.getArtistName,lst[:3])
                 data4 = map(API.getSongName,lst[3:])
             update()
-        def pullup(e):
-            infobox=CTkToplevel()
-            infobox.title("Info")
-            infobox.geometry("800x800")
+        def pullup():
+            infobox= Tk()
+            infobox.geometry('400x400')
+            ttk.Label(infobox, text="info").pack()
+            Listbox(infobox, width=5000).pack()
+
         def update():
             global data2
             global data4
