@@ -22,7 +22,9 @@ class App(customtkinter.CTk):
         self.Entry.grid(row=1, column=0, padx=20, pady=(0, 20), sticky="w")
         self.list= CTkListbox(self, width=5000)
         self.list.grid(row=2, column=0, padx=20, pady=(0, 20), sticky="w")
-        
+        def pullup(e):
+            h=0
+            print(h)
         
         def searchfunction(e):
             global data2
@@ -46,17 +48,15 @@ class App(customtkinter.CTk):
             for x in data4:
                 self.list.insert(END,"Song: " + x)
         self.Entry.bind("<KeyRelease>",searchfunction)
-       
-            
-                                           
+        self.list.bind("<<ListboxSelect>>",pullup)
+                                          
 
         self.button = customtkinter.CTkButton(self, text="Clear Restuls", command=self.button_callback)
         self.button.grid(row=400, column=0, padx=20, pady=20, sticky="ew", columnspan=2)
 
     def button_callback(self):
         self.list.delete(0,END)
-        print("button pressed")
-    
+        self.Entry.delete(0,END)
 
 app = App()
 app.mainloop()
