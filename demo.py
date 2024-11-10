@@ -12,8 +12,11 @@ import webbrowser
 import API
 import infopage
 set_appearance_mode("light")
+dataart={}
+datasong={}
 data2=''
 data4=''
+data=''
 class App(customtkinter.CTk):
     def __init__(self):
         super().__init__()
@@ -45,10 +48,23 @@ class App(customtkinter.CTk):
                 data4 = map(API.getSongName,lst[3:])
             update()
         def pullup():
+            data=self.list.get(ACTIVE)
+            print(data)
+            char=API.search(data)
+            global data2
+            global data4
+            if char in data2:
+                dataart=API.getArtistData(char)
+            else:
+                datasong=API.getSongData(char)
+            print(dataart)
+
+
             infobox= Tk()
             infobox.geometry('400x400')
             ttk.Label(infobox, text="info").pack()
-            Listbox(infobox, width=5000).pack()
+            Listbox(infobox, width=500).pack()
+            
 
         def update():
             global data2
@@ -60,8 +76,7 @@ class App(customtkinter.CTk):
             for x in data4:
                 self.list.insert(END,"Song: " + x)
         self.Entry.bind("<KeyRelease>",searchfunction)
-        self.list.bind("<<ListboxSelect>>",pullup)
-                                          
+        self.list.bind("<<ListboxSelect>>",pullup)                                         
 
         self.button = customtkinter.CTkButton(self, text="Clear Restuls", command=self.button_callback)
         self.button.grid(row=400, column=0, padx=20, pady=20, sticky="ew", columnspan=2)
