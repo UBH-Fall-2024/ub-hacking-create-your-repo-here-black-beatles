@@ -24,8 +24,8 @@ class App(customtkinter.CTk):
         self.Entry.grid(row=1, column=0, padx=20, pady=(0, 20), sticky="w")
         self.list= CTkListbox(self, width=5000)
         self.list.grid(row=2, column=0, padx=20, pady=(0, 20), sticky="w")
-        def pullup(e):
-            import infopage
+        
+            
         
         def searchfunction(e):
             global data2
@@ -39,6 +39,8 @@ class App(customtkinter.CTk):
                 data2 = map(API.getArtistName,lst[:3])
                 data4 = map(API.getSongName,lst[3:])
             update()
+        def pullup(e):
+            infobox=CTkToplevel()
         def update():
             global data2
             global data4
