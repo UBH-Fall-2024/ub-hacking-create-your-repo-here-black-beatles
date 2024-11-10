@@ -7,9 +7,16 @@ from spotipy.oauth2 import SpotifyClientCredentials
 spotify = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
 
 #returns Artist's ID through a search with name
-def getArtistID(name):
-    artistInfo = spotify.search(name, limit = 1, type = 'artist')
-    return artistInfo['artists']['items'][0]['name']
+def search(name):
+    artistList = []
+    songList = []
+    info = spotify.search(name, limit = 3, type ='artist,track')
+    for i in range(3):
+        songList.append(info['tracks']['items'][i]['id'])
+    for i in range(3):
+        artistList.append(info['artists']['items'][i]['id'])
+    artistList.extend(songList)
+    return artistList
 
 #returns Artist's name given Artist's ID
 def getArtistName(ID):
@@ -24,5 +31,8 @@ def getSongID(name):
 def getSongName(ID):
     return spotify.track(ID)['name']
 
-
-;alskfjasl;kfjsadl;fjsal;dfjl
+for i in range(len(search("billy"))):
+    if i < len(search("billy"))/2:
+        print("Artist: " + getArtistName(search("billy")[i]))
+    else:
+        print("Song: " +getSongName(search("billy")[i]))
