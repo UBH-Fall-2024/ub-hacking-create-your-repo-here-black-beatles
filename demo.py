@@ -20,22 +20,32 @@ class App(customtkinter.CTk):
         self.title.grid(row=0, column=0, padx=20, pady=20, sticky="ew", columnspan=2)
         self.Entry= customtkinter.CTkEntry(self,font=("helvetica",14))
         self.Entry.grid(row=1, column=0, padx=20, pady=(0, 20), sticky="w")
-        self.list= CTkListbox(self, width=50)
-        self.list.grid(row=2, column=0, padx=20, pady=(0, 20), , sticky="w")
+        self.list= CTkListbox(self, width=5000)
+        self.list.grid(row=2, column=0, padx=20, pady=(0, 20), sticky="w")
         def searchfunction(e):
             global data2
             global data4
+            
 
             typed= self.Entry.get()
-            data1=API.getArtistID(typed)
-            data2=API.getArtistName(data1)
-            data3=API.getSongID(typed)
-            data4=API.getSongName(data3)
-            print(data2)
-            print(data4)
+            if typed=='':
+                self.list.delete(0,END)
+            else:
+                 data1=API.getArtistID(typed)
+                 data2=API.getArtistName(data1)
+                 data3=API.getSongID(typed)
+                 data4=API.getSongName(data3)
+                 print(data2)
+                 print(data4)
+                 update(data3)
+            
+        def update(stuff):
+            global data2
+            global data4
+            self.list.delete(0,END)
             self.list.insert(END,data2)
             self.list.insert(END,data4)
-            
+        self.list.bind
         self.Entry.bind("<KeyRelease>",searchfunction)
        
             
