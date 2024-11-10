@@ -30,3 +30,30 @@ def getSongID(name):
 #returns Song's name given Song's ID
 def getSongName(ID):
     return spotify.track(ID)['name']
+
+
+def getArtistData(ID):
+    info = {
+        
+    }
+    artistInfo = spotify.artist(ID)
+    info.update({'followers': artistInfo['followers']['total']})
+    info.update({'image': artistInfo['images'][0]['url']})
+    info.update({'artistName': artistInfo['name']})
+    artistInfo = spotify.artist_top_tracks(ID)
+    i = 0
+    while i < 3 and i < len(artistInfo['tracks']):
+        info.update({f'song{i+1}Name': artistInfo['tracks'][i]['name']})
+        i += 1
+    return info
+
+def getSongData(ID):
+    info = {
+
+    }
+    songInfo = spotify.track(ID)
+    info.update({'album' : songInfo['album']['name']})
+    info.update({'release_date' : songInfo['album']['release_date']})
+    info.update({'image' : songInfo['album']['images'][0]['url']})
+    info.update({'name' : songInfo['album']['name']})
+    return info
